@@ -12,17 +12,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebMvcTest(HomeController.class)
 public class HomeControllerTest {
     @Autowired
-    private MockMvc mockMvc;
+    private  MockMvc mockMvc;
+
+    public HomeControllerTest(MockMvc mockMvc) {
+        this.mockMvc = mockMvc;
+    }
 
     @Test
-    public void testHomePage() throws Exception {
-        ResultActions home = MockMvc.perform(get("/"))
+    public  void testHomePage() throws Exception {
+        mockMvc.perform(get("/"))
                 .andExpect((status().isOk()))
                 .andExpect(view().name("home"))
                 .andExpect(content().string(containsString("Welcome to ...")));
